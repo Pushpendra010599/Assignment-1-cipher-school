@@ -1,0 +1,592 @@
+Assignment 1- searching and sorting
+q-0
+
+
+#include<iostream>
+using namespace std;
+
+bool WillMeet(int p1, int j1, int p2, int j2){
+
+   return ( (j1 > j2 && ( ((p2 - p1) % (j1 - j2)) == 0)) || (j2 > j1 && ( ((p1 - p2) % (j2 - j1)) == 0)) );
+}
+
+int main() {
+   
+   int p1 = 5, j1 = 4, p2 = 9, j2 = 2;
+   if(WillMeet(p1, j1, p2, j2))
+      cout<<"Both will meet at some point";
+   else
+      cout<<"Both will not meet at any point";
+   
+   return 0;
+}
+
+----------
+q-1
+
+#include <iostream>
+#include <stack>
+using namespace std;
+bool isMajorityElement(int arr[], int n, int x){
+   int freq = 0;
+   for(int i = 0; i<n; i++){
+      if(arr[i] == x )
+         freq++;
+      if(arr[i] > x)
+         break;
+   }
+   return (freq > n/2);
+}
+int main() {
+   int arr[] = {1, 2, 3, 3, 3, 3, 6};
+   int n = sizeof(arr)/sizeof(arr[0]);
+   int x = 3;
+   if (isMajorityElement(arr, n, x))
+      cout << x << " is the majority element of the array";
+   else
+      cout << x << " is not the majority element of the array";
+
+----------------
+q-2
+
+#include<iostream>
+using namespace std;
+int PeakElement(int a[], int start, int end) {
+   int i, mid;
+   mid = (end+start+1)/2;
+   if((a[mid] > a[mid+1] && mid == start)||(a[mid] > a[mid-1] && mid == end)) {
+      return a[mid];
+   } else if(a[mid] < a[mid-1] && a[mid] > a[mid+1]) {
+      return a[mid];
+   } else if(a[mid] <= a[mid+1]) {
+      return PeakElement(a, mid+1, end);
+   } else if(a[mid] <= a[mid-1]) {
+      return PeakElement(a, start,mid-1);
+   }
+}
+int main() {
+   int n, i, p;
+   cout<<"\nEnter the number of data element: ";
+   cin>>n;
+   int arr[n];
+   for(i = 0; i < n; i++) {
+      cout<<"Enter element "<<i+1<<": ";
+      cin>>arr[i];
+   }
+   p = PeakElement(arr, 0, n-1);
+   cout<<"\nThe peak element of the given array is: "<<p;
+   return 0;
+
+----------------------
+
+q-3
+
+#include <bits/stdc++.h>
+  
+using namespace std;
+int search(int mat[4][4], int n, int x)
+{
+    if (n == 0)
+        return -1;
+     
+
+    for(int i = 0; i < n; i++)
+    {
+        for(int j = 0; j < n; j++)
+        
+        if(mat[i][j] == x)
+        {
+            cout<<"Element found at ("<<
+                        i << ", " << j << ")\n";
+            return 1;
+        }
+    }
+  
+    cout << "n Element not found";
+    return 0; 
+}
+  
+int main()
+{
+    int mat[4][4] = { { 10, 20, 30, 40 },
+                      { 15, 25, 35, 45 },
+                      { 27, 29, 37, 48 },
+                      { 32, 33, 39, 50 } };
+    search(mat, 4, 29);
+  
+    return 0;
+}
+
+-----------
+
+
+q-4
+
+
+#include <bits/stdc++.h>
+using namespace std;
+void findFirstAndLast(int arr[], int n, int x)
+{
+    int first = -1, last = -1;
+    for (int i = 0; i < n; i++) {
+        if (x != arr[i])
+            continue;
+        if (first == -1)
+            first = i;
+        last = i;
+    }
+    if (first != -1)
+        cout << "First Occurrence = " << first
+             << "nLast Occurrence = " << last;
+    else
+        cout << "Not Found";
+}
+
+int main()
+{
+    int arr[] = { 1, 2, 2, 2, 2, 3, 4, 7, 8, 8 };
+    int n = sizeof(arr) / sizeof(int);
+    int x = 8;
+    findFirstAndLast(arr, n, x);
+    return 0;
+}
+
+
+
+
+
+-----------
+q-5
+
+using namespace std; 
+  
+
+void segregate0and1(int arr[], int n) 
+{ 
+    int count = 0; // Counts the no of zeros in arr 
+  
+    for (int i = 0; i < n; i++) { 
+        if (arr[i] == 0) 
+            count++; 
+    } 
+  
+
+    for (int i = 0; i < count; i++) 
+        arr[i] = 0; 
+  
+
+    for (int i = count; i < n; i++) 
+        arr[i] = 1; 
+} 
+  
+
+void print(int arr[], int n) 
+{ 
+    cout << "Array after segregation is "; 
+  
+    for (int i = 0; i < n; i++) 
+        cout << arr[i] << " "; 
+} 
+  
+int main() 
+{ 
+    int arr[] = { 0, 1, 0, 1, 1, 1 }; 
+    int n = sizeof(arr) / sizeof(arr[0]); 
+      
+    segregate0and1(arr, n); 
+    print(arr, n); 
+      
+    return 0; 
+} 
+
+--------
+
+
+
+q-6
+
+#include <bits/stdc++.h> 
+using namespace std; 
+  
+
+void sort012(int a[], int arr_size) 
+{ 
+    int lo = 0; 
+    int hi = arr_size - 1; 
+    int mid = 0; 
+  
+
+    while (mid <= hi) { 
+        switch (a[mid]) { 
+  
+
+        case 0: 
+            swap(a[lo++], a[mid++]); 
+            break; 
+  
+
+        case 1: 
+            mid++; 
+            break; 
+  
+
+        case 2: 
+            swap(a[mid], a[hi--]); 
+            break; 
+        } 
+    } 
+} 
+  
+
+void printArray(int arr[], int arr_size) 
+{ 
+
+    for (int i = 0; i < arr_size; i++) 
+        cout << arr[i] << " "; 
+} 
+  
+
+int main() 
+{ 
+    int arr[] = { 0, 1, 1, 0, 1, 2, 1, 2, 0, 0, 0, 1 }; 
+    int n = sizeof(arr) / sizeof(arr[0]); 
+  
+    sort012(arr, n); 
+  
+    cout << "array after segregation "; 
+  
+    printArray(arr, n); 
+  
+    return 0; 
+} 
+
+----------
+
+q-7
+
+#include <iostream>
+using namespace std;
+void alternateSort(int arr[], int n) ;
+void swap(int *xp, int *yp) ;
+void selectionSort(int arr[], int n) ;
+int main(){
+   int arr[] = { 4,1,8,2,9,3,7};
+   int n = sizeof(arr)/sizeof(arr[0]);
+   alternateSort(arr, n);
+   return 0;
+}
+void alternateSort(int arr[], int n){
+   selectionSort(arr, n);
+   int i = 0, j = n-1;
+   while (i < j) {
+      cout << arr[j--] << " ";
+      cout << arr[i++] << " ";
+   }
+   if (n % 2 != 0)
+      cout << arr[i];
+}
+void swap(int *xp, int *yp){
+   int temp = *xp;
+   *xp = *yp;
+   *yp = temp;
+}
+void selectionSort(int arr[], int n){
+   int i, j, min_idx;
+   for (i = 0; i < n-1; i++){
+      min_idx = i;
+   for (j = i+1; j < n; j++)
+      if (arr[j] < arr[min_idx])
+         min_idx = j;
+      swap(&arr[min_idx], &arr[i]);
+   }
+}
+
+---------
+
+q-11
+
+#include <iostream>
+using namespace std;
+int max(int a, int b){
+   if(a > b)
+      return a;
+      return b;
+}
+int MaximizeProfit(int stkPrice[], int firstDay, int lastDay){
+   if (lastDay <= firstDay)
+      return 0;
+   int maxProfit = 0;
+   for (int i = firstDay; i < lastDay; i++) {
+      for (int j = i + 1; j <= lastDay; j++) {
+         if (stkPrice[j] > stkPrice[i]) {
+            int profit = ( stkPrice[j] - stkPrice[i] ) + MaximizeProfit(stkPrice, firstDay, i - 1) + MaximizeProfit(stkPrice, j + 1, lastDay);
+            maxProfit = max(maxProfit, profit);
+         }
+      }
+   }
+   return maxProfit;
+}
+int main(){
+   int stkPrice[] = { 120, 310, 405, 210, 150, 550 };
+   int days = 6 ;
+   cout<<"The Maximum profit is "<<MaximizeProfit(stkPrice, 0, days);
+   return 0;
+}
+
+-----------
+
+q-12
+
+#include <iostream>
+using namespace std;
+const int MAX = 100;
+void printSpiralMatrix(int mat[][MAX], int r, int c) {
+   int i, a = 0, b = 2;
+   int low_row = (0 > a) ? 0 : a;
+   int low_column = (0 > b) ? 0 : b - 1;
+   int high_row = ((a + 1) >= r) ? r - 1 : a + 1;
+   int high_column = ((b + 1) >= c) ? c - 1 : b + 1;
+   while ((low_row > 0 - r && low_column > 0 - c)) {
+      for (i = low_column + 1; i <= high_column && i < c && low_row >= 0; ++i)
+         cout<<mat[low_row][i]<<" ";
+      low_row -= 1;
+      for (i = low_row + 2; i <= high_row && i < r && high_column < c; ++i)
+         cout<<mat[i][high_column]<<" ";
+      high_column += 1;
+      for (i = high_column - 2; i >= low_column && i >= 0 && high_row < r; --i)
+         cout << mat[high_row][i]<<" ";
+      high_row += 1;
+      for (i = high_row - 2; i > low_row && i >= 0 && low_column >= 0; --i)
+         cout<<mat[i][low_column]<<" ";
+      low_column -= 1;
+   }
+   cout << endl;
+}
+int main() {
+   int mat[][MAX] = {
+      { 1, 4, 7 },
+      { 2, 5, 8 },
+      { 3, 6, 9 }
+   };
+   int r = 3, c = 3;
+   cout<<"Sprial traversal of matrix starting from point "<<r<<", "<<c<<" is :\n";
+   printSpiralMatrix(mat, r, c);
+}
+
+---------------
+
+
+q-14
+
+#include<iostream>
+using namespace std;
+
+int maxSum( int arr[], int n) {
+   int tempMax = arr[0];
+   int currentMax = tempMax;
+
+   for (int i = 1; i < n; i++ ) { //find the max value
+      currentMax = max(arr[i], currentMax+arr[i]);
+      tempMax = max(tempMax, currentMax);
+   }
+   return tempMax;
+}
+
+int main() {
+   int arr[] = {-2, -3, 4, -1, -2, 1, 5, -3};
+   int n = 8;
+   cout << "Maximum Sum of the Sub-array is: "<< maxSum( arr, n );
+}
+
+
+--------------
+
+q-15
+
+#include<iostream>
+#include<algorithm>
+using namespace std;
+
+int minPlatform(int arrival[], int departure[], int n) {
+   sort(arrival, arrival+n);   
+   sort(departure, departure+n);
+
+   int platform = 1, minPlatform = 1;
+   int i = 1, j = 0;
+
+   while (i < n && j < n) {
+      if (arrival[i] < departure[j]) {
+         platform++;     //platform added
+         i++;
+         if (platform > minPlatform)   
+            minPlatform = platform;
+      } else {
+         platform--;    
+         j++;
+      }
+   }
+   return minPlatform;
+}
+
+int main() {
+   int arrival[] = {900, 940, 950, 1100, 1500, 1800};
+   int departure[] = {910, 1200, 1120, 1130, 1900, 2000};
+   int n = 6;
+   cout << "Minimum Number of Platforms Required: " << minPlatform(arrival, departure, n);
+}
+
+
+----------------------
+
+
+q-16-
+
+#include <iostream>
+
+using namespace std;
+
+int missingNumber(int nums[], int arr_size) {
+        if (NULL == nums || arr_size == 0) {
+            return 0;
+        }
+        int result = arr_size;
+        for (int i = 0; i < arr_size; i++) {
+            result ^= i;
+            result ^= nums[i];
+        }
+        return result;
+    }
+
+int main() {
+	int arr[10] = {10, 9, 4, 6, 3, 2, 5, 7, 1, 0 };
+	int arr_size = sizeof(arr) / sizeof(arr[0]);
+	cout << "Original array\n";
+	for (int i = arr_size - 1; i >= 0; i--) 
+    cout << arr[i] << " ";
+    cout << "\nMissing number in the said array: ";
+    cout << "\n" <<  missingNumber(arr, arr_size);
+    
+    int arr1[4] = {0, 3, 4, 2};
+	arr_size = sizeof(arr1) / sizeof(arr1[0]);
+	cout << "\n\nOriginal array\n";
+	for (int i = arr_size - 1; i >= 0; i--) 
+    cout << arr1[i] << " ";
+    cout << "\nMissing number in the said array: ";
+    cout << "\n" <<  missingNumber(arr1, arr_size);
+    return 0;
+}
+
+------------
+
+q-17-
+
+#include <iostream>
+#define SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
+using namespace std;
+void mergeSortedArrays(int *arr1, int n1, int *arr2, int n2, int *result){
+   int i, j, k;
+   i = 0;
+   j = 0;
+   k = 0;
+   while (i < n1 && j < n2) {
+      if (arr1[i] < arr2[j]) {
+         result[k] = arr1[i];
+         ++k;
+         ++i;
+      } else {
+         result[k] = arr2[j];
+         ++k;
+         ++j;
+      }
+   }
+   while (i < n1) {
+      result[k] = arr1[i];
+      ++k;
+      ++i;
+   }
+   while (j < n2) {
+      result[k] = arr2[j];
+      ++k;
+      ++j;
+   }
+}
+void dispalyArray(int *arr, int n){
+   for (int i = 0; i < n; ++i) {
+      cout << arr[i] << " ";
+   }
+   cout << endl;
+}
+int main(){
+   int arr1[] = {10, 15, 17, 20};
+   int arr2[] = {5, 9, 7, 13, 19};
+   int result[SIZE(arr1) + SIZE(arr2)];
+   cout << "First sorted array:" << endl;
+   dispalyArray(arr1, SIZE(arr1));
+   cout << "Second sorted array:" << endl;
+   dispalyArray(arr2, SIZE(arr2));
+   mergeSortedArrays(arr1, SIZE(arr1), arr2, SIZE(arr2), result);
+   cout << "Final sorted array:" << endl;
+   dispalyArray(result, SIZE(result));
+   return 0;
+}
+
+-------------------
+
+
+q-18-
+
+ 
+#include <bits/stdc++.h> 
+using namespace std; 
+  
+
+int search(int arr[], int l, int h, int key) 
+{ 
+    if (l > h) 
+        return -1; 
+  
+    int mid = (l + h) / 2; 
+    if (arr[mid] == key) 
+        return mid; 
+  
+
+    if (arr[l] <= arr[mid]) { 
+ 
+        if (key >= arr[l] && key <= arr[mid]) 
+            return search(arr, l, mid - 1, key); 
+       
+        return search(arr, mid + 1, h, key); 
+    } 
+  
+
+    if (key >= arr[mid] && key <= arr[h]) 
+        return search(arr, mid + 1, h, key); 
+  
+    return search(arr, l, mid - 1, key); 
+} 
+  
+
+int main() 
+{ 
+    int arr[] = { 4, 5, 6, 7, 8, 9, 1, 2, 3 }; 
+    int n = sizeof(arr) / sizeof(arr[0]); 
+    int key = 6; 
+    int i = search(arr, 0, n - 1, key); 
+  
+    if (i != -1) 
+        cout << "Index: " << i << endl; 
+    else
+        cout << "Key not found"; 
+} 
+
+
+------------------
+
+
+
+
+
+
+
+
+
